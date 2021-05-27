@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.silenceboy.com/"/>
-  <updated>2020-12-22T04:34:43.896Z</updated>
+  <updated>2021-05-26T14:14:26.728Z</updated>
   <id>https://www.silenceboy.com/</id>
   
   <author>
@@ -15,6 +15,36 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Arch linux i3wm运行企业微信和微信</title>
+    <link href="https://www.silenceboy.com/2021/05/26/Arch-linux-i3wm%E8%BF%90%E8%A1%8C%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E5%92%8C%E5%BE%AE%E4%BF%A1/"/>
+    <id>https://www.silenceboy.com/2021/05/26/Arch-linux-i3wm运行企业微信和微信/</id>
+    <published>2021-05-26T14:05:02.000Z</published>
+    <updated>2021-05-26T14:14:26.728Z</updated>
+    
+    <content type="html"><![CDATA[<p>当你运行在i3wm环境下时，运行通过deepin-wine安装的企业微信和微信时，打开软件时会出现闪退的现象，启动不了软件。或直接在命令行里执行命令也启动不了程序，会出现以下提示：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">X Error of failed request:  BadWindow (invalid Window parameter)</span><br><span class="line">  Major opcode of failed request:  20 (X_GetProperty)</span><br><span class="line">  Resource id in failed request:  0x0</span><br><span class="line">  Serial number of failed request:  10</span><br><span class="line">  Current serial number in output stream:  10</span><br></pre></td></tr></table></figure><p><strong>解决方案</strong></p><p>这个问题其实和 KDE 无关, 应该是 deepin 在打包 deepin-wine 的过程中有意或者无意加入了 GNOME 依赖。</p><p>执行 <code>/usr/lib/gnome-settings-daemon/gsd-xsettings</code> 即可.<br>或者后台运行：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nohup /usr/lib/gnome-settings-daemon/gsd-xsettings &gt; /dev/null 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure><p>如果 GNOME 的版本较低(比如Debian 9), 没有单独的 <code>gsd-xsettings</code> 可执行文件, 则执行 <code>gnome-settings-daemon</code>.</p><p>然后切换到对应目录 <code>cd /opt/deepinwine/apps/Deepin-WXWork</code> 或者 <code>/opt/deepinwine/apps/Deepin-WeChat</code><br>运行 <code>./run.sh</code>即可启动软件。</p><p>由于每次都执行上边的命令很繁琐，可以将其加入i3的启动项，每次开机制动设置即可。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;当你运行在i3wm环境下时，运行通过deepin-wine安装的企业微信和微信时，打开软件时会出现闪退的现象，启动不了软件。或直接在命令行里执行命令也启动不了程序，会出现以下提示：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr
+      
+    
+    </summary>
+    
+      <category term="linux" scheme="https://www.silenceboy.com/categories/linux/"/>
+    
+    
+      <category term="linux" scheme="https://www.silenceboy.com/tags/linux/"/>
+    
+      <category term="i3wm" scheme="https://www.silenceboy.com/tags/i3wm/"/>
+    
+      <category term="i3" scheme="https://www.silenceboy.com/tags/i3/"/>
+    
+  </entry>
   
   <entry>
     <title>MySQL TEXT数据类型的最大长度</title>
@@ -535,32 +565,6 @@
       <category term="javascript" scheme="https://www.silenceboy.com/tags/javascript/"/>
     
       <category term="算法" scheme="https://www.silenceboy.com/tags/%E7%AE%97%E6%B3%95/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>使用git进行远程分支同步</title>
-    <link href="https://www.silenceboy.com/2019/04/03/%E4%BD%BF%E7%94%A8git%E8%BF%9B%E8%A1%8C%E8%BF%9C%E7%A8%8B%E5%88%86%E6%94%AF%E5%90%8C%E6%AD%A5/"/>
-    <id>https://www.silenceboy.com/2019/04/03/使用git进行远程分支同步/</id>
-    <published>2019-04-03T02:48:12.000Z</published>
-    <updated>2020-11-28T06:28:17.328Z</updated>
-    
-    <content type="html"><![CDATA[<p>在git项目目录下执行<code>git remote show origin</code>命令：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">➜  api git:(419788c) ✗ git remote show origin</span><br><span class="line">* remote origin</span><br><span class="line">  Fetch URL: git@github.com:silenceboychen/blog.git</span><br><span class="line">  Push  URL: git@github.com:silenceboychen/blog.git</span><br><span class="line">  HEAD branch: master</span><br><span class="line">  Remote branches:</span><br><span class="line">    alibeta                                      tracked</span><br><span class="line">    dev                                          tracked</span><br><span class="line">    master                                       tracked</span><br><span class="line">    production                                   tracked</span><br><span class="line">    refs/remotes/origin/feat-10.9                stale (use &apos;git remote prune&apos; to remove)</span><br><span class="line">    refs/remotes/origin/feat-docker              stale (use &apos;git remote prune&apos; to remove)</span><br><span class="line">    refs/remotes/origin/feat_avatar              stale (use &apos;git remote prune&apos; to remove)</span><br></pre></td></tr></table></figure><p>可以看到有一些状态为<code>stale</code>的分支，这些分支都已经被删除了，但是我们本机上还有记录，这些记录不会通过<code>git pull</code>自动清除。</p><p>为了删除这些分支，实现和远程分支的同步，可以执行<code>git remote prune origin</code></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">➜  api git:(419788c) ✗ git remote prune origin</span><br><span class="line">Pruning origin</span><br><span class="line">URL: git@github.com:silenceboychen/blog.git</span><br><span class="line"> * [pruned] origin/feat-10.9</span><br><span class="line"> * [pruned] origin/feat-docker</span><br><span class="line"> * [pruned] origin/feat_avatar</span><br></pre></td></tr></table></figure><p>再次查看，发现那些无效分支已经在本机被删除：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">➜  api git:(419788c) ✗ git remote show origin</span><br><span class="line">* remote origin</span><br><span class="line">  Fetch URL: git@github.com:silenceboychen/blog.git</span><br><span class="line">  Push  URL: git@github.com:silenceboychen/blog.git</span><br><span class="line">  HEAD branch: master</span><br><span class="line">  Remote branches:</span><br><span class="line">    alibeta                     tracked</span><br><span class="line">    dev                         tracked</span><br><span class="line">    master                      tracked</span><br><span class="line">    production                  tracked</span><br><span class="line">  Local branch configured for &apos;git pull&apos;:</span><br><span class="line">    master merges with remote master</span><br><span class="line">  Local ref configured for &apos;git push&apos;:</span><br><span class="line">    master pushes to master (local out of date)</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;在git项目目录下执行&lt;code&gt;git remote show origin&lt;/code&gt;命令：&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;lin
-      
-    
-    </summary>
-    
-      <category term="git" scheme="https://www.silenceboy.com/categories/git/"/>
-    
-    
-      <category term="git" scheme="https://www.silenceboy.com/tags/git/"/>
     
   </entry>
   
